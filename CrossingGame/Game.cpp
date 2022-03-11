@@ -1,10 +1,11 @@
-#include "Game.h"
+#include "Game.hpp"
 
 void Game::_initVar()
 {
 	this->videomode.height = 1920;
 	this->videomode.width = 1080;
 	this->videomode.bitsPerPixel = 32;
+	this->playerShip = new Player();
 }
 
 void Game::_initWindow()
@@ -32,7 +33,9 @@ void Game::pollEvents()
 
 void Game::gameRender()
 {
-	this->window->clear(sf::Color::Cyan);
+	this->window->clear(sf::Color::Black);
+	//code
+	this->playerShip->RenderPlayer(this->window);
 	//code
 	this->window->display();
 }
@@ -45,6 +48,8 @@ Game::Game()
 
 Game::~Game()
 {
+	delete this->window;
+	delete this->playerShip;
 	std::cout << "Game destructor called"<<"\n";
 }
 
@@ -52,5 +57,6 @@ void Game::update()
 {
 	this->gameRender();
 	this->pollEvents();
-
+	this->playerShip->GetDeltaTime();
+	this->playerShip->UpdatePlayer();
 }
