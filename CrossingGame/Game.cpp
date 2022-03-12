@@ -6,6 +6,8 @@ void Game::_initVar()
 	this->videomode.width = 1080;
 	this->videomode.bitsPerPixel = 32;
 	this->playerShip = new Player();
+	this->bulletModel = new Bullet();
+	this->bullets = std::vector<Bullet*>();
 }
 
 void Game::_initWindow()
@@ -28,6 +30,12 @@ void Game::pollEvents()
 		{
 			this->window->close();
 		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			bulletModel->setPositionBullet(this->playerShip->GetPlayerShape().getPosition());
+			bullets.push_back(new Bullet(*bulletModel));
+			
+		}
 	}
 }
 
@@ -36,6 +44,10 @@ void Game::gameRender()
 	this->window->clear(sf::Color::Black);
 	//code
 	this->playerShip->RenderPlayer(this->window);
+	for(auto bullet :bullets )
+	{
+		this->window->draw(*bullet->GetBulletShape());
+	}
 	//code
 	this->window->display();
 }
@@ -59,4 +71,8 @@ void Game::update()
 	this->pollEvents();
 	this->playerShip->GetDeltaTime();
 	this->playerShip->UpdatePlayer();
+	for (auto& bullet : bullets)
+	{
+		bullet->updateBullet();
+	}
 }
