@@ -7,12 +7,14 @@
 class Game
 {
 private:
+	int height, width;
 	sf::VideoMode videomode;
 	sf::RenderWindow* window;
 	sf::Event ev;
 	Player* playerShip;
-	Bullet* bulletModel;
-	std::vector<Bullet*>bullets;
+	Bullet bulletModel;
+	std::vector<Bullet>bullets;
+	int shootTimer;
 	void _initVar();
 	void _initWindow();
 	void pollEvents();
@@ -23,5 +25,7 @@ public:
 	~Game();
 	bool isRunning();
 	void update();
+	void Shooting();
+	void MoveBul();
 };
 

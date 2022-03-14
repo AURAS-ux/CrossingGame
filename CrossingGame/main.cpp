@@ -3,9 +3,6 @@
 int main()
 {
     Game* game=new Game();
-	while (game->isRunning())
-	{
-		game->update();
-	}
+    game->update();
     return 0;
 }

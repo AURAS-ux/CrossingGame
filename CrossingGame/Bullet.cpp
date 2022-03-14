@@ -7,8 +7,8 @@ void Bullet::_initVar()
 
 void Bullet::_initBullet()
 {
-	shape = new sf::CircleShape(bulRadius);
-	shape->setFillColor(sf::Color::Red);
+	shape = sf::CircleShape(bulRadius);
+	shape.setFillColor(sf::Color::Red);
 }
 
 void Bullet::GetDeltaTime()
@@ -24,26 +24,26 @@ Bullet::Bullet()
 
 Bullet::~Bullet()
 {
-	std::cout << "Called bullet destructor"<<"\n";
+	//std::cout << "Called bullet destructor"<<"\n";
 }
 
-sf::CircleShape* Bullet::GetBulletShape()
+sf::CircleShape Bullet::GetBulletShape()
 {
 	return this->shape;
 }
 
 void Bullet::setPositionBullet(sf::Vector2f pos)
 {
-	this->shape->setPosition(pos);
+	this->shape.setPosition(pos);
 }
 
 void Bullet::setPositionBullet(float x, float y)
 {
-	this->shape->setPosition(x, y);
+	this->shape.setPosition(x, y);
 }
 
-void Bullet::updateBullet()
+void Bullet::updateBullet(sf::Vector2f playerCenter)
 {
 	this->GetDeltaTime();
-	this->shape->move(0, -100 * deltaTime);
+	this->shape.move(0,-10);
 }
