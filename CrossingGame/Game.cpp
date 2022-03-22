@@ -20,12 +20,13 @@ void Game::_initVar()
 		this->background.setScale(1.875, 1.875);
 		this->background.setTexture(*backgroundTexture);
 	}
+	else return;
 }
 
 void Game::_initWindow()
 {
 	this->window = new sf::RenderWindow();
-	this->window->create(this->videomode, "Space shoot Game", sf::Style::Fullscreen);
+	this->window->create(this->videomode, "LockON", sf::Style::Default);
 	this->window->setFramerateLimit(144);
 }
 
@@ -38,7 +39,11 @@ void Game::pollEvents()
 {
 	while (this->window->pollEvent(ev)) 
 	{
-		if (ev.key.code == sf::Keyboard::Escape)
+		if (ev.type = sf::Event::Closed)
+		{
+			this->window->close();
+		}
+		else if (ev.key.code == sf::Keyboard::Escape)
 		{
 			this->window->close();
 		}
@@ -51,11 +56,14 @@ void Game::gameRender()
 	//code
 	this->window->draw(this->background);
 	this->playerShip->RenderPlayer(this->window);
-	for(auto bullet :bullets )
+	for(auto& bullet :bullets )
 	{
 		this->window->draw(bullet.GetBulletShape());
 	}
-	manager.RenderEnemies(this->window);
+	for (auto& enem : manager.GetEnemies())
+	{
+		enem.renderEnemy(this->window);
+	}
 	//code
 	this->window->display();
 }

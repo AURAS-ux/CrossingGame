@@ -3,15 +3,14 @@
 
 void EnemyManager::_initVars()
 {
-	this->enemyModel = Enemy();
 	this->enemy = std::vector<Enemy>();
 }
 
 void EnemyManager::_initEnemyManager()
 {
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		this->enemy.push_back(Enemy(enemyModel));
+		this->enemy.push_back(Enemy(sf::Vector2f(200 + 80 * i, 200)));
 	}
 }
 
@@ -25,7 +24,7 @@ EnemyManager::~EnemyManager()
 {
 }
 
-std::vector<Enemy> EnemyManager::GetEnemies()
+std::vector<Enemy>& EnemyManager::GetEnemies()
 {
 	return enemy;
 }

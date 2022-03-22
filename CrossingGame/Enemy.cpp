@@ -68,8 +68,8 @@ void Enemy::MoveEnemy()
 {
 	if (this->enemyShape.getPosition().x < 1920)
 	{
-		this->enemyShape.move(1.f, 0);
-		this->hitboxShape.move(1.f, 0);
+		this->enemyShape.move(0.2f, 0);
+		this->hitboxShape.move(0.2f, 0);
 	}
 	else if (this->enemyShape.getPosition().x > 1920)
 	{
