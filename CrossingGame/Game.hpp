@@ -4,6 +4,9 @@
 #include<iostream>
 #include"Bullet.hpp"
 #include<vector>
+#include"Enemy.hpp"
+#include<memory>
+#include"EnemyManager.hpp"
 class Game
 {
 private:
@@ -15,6 +18,9 @@ private:
 	Bullet bulletModel;
 	std::vector<Bullet>bullets;
 	int shootTimer;
+	EnemyManager manager;
+	sf::Texture* backgroundTexture;
+	sf::Sprite background;
 	void _initVar();
 	void _initWindow();
 	void pollEvents();
@@ -27,5 +33,6 @@ public:
 	void update();
 	void Shooting();
 	void MoveBul();
+	void DeleteBullets();
 };
 

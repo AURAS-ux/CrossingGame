@@ -12,6 +12,14 @@ void Game::_initVar()
 	this->bulletModel =  Bullet();
 	this->bullets = std::vector<Bullet>();
 	this->shootTimer = 0;
+	this->manager = EnemyManager();
+	this->background = sf::Sprite();
+	this->backgroundTexture = new sf::Texture();
+	if (this->backgroundTexture->loadFromFile("Assets/space.png"))
+	{
+		this->background.setScale(1.875, 1.875);
+		this->background.setTexture(*backgroundTexture);
+	}
 }
 
 void Game::_initWindow()
@@ -41,11 +49,13 @@ void Game::gameRender()
 {
 	this->window->clear(sf::Color::Black);
 	//code
+	this->window->draw(this->background);
 	this->playerShip->RenderPlayer(this->window);
 	for(auto bullet :bullets )
 	{
 		this->window->draw(bullet.GetBulletShape());
 	}
+	manager.RenderEnemies(this->window);
 	//code
 	this->window->display();
 }
@@ -78,6 +88,12 @@ void Game::update()
 			shootTimer = 0;
 		}
 		this->MoveBul();
+		this->DeleteBullets();
+		this->manager.MoveEnemies();
+		for (auto& b : bullets)
+		{
+			manager.EnemyHit(b);
+		}
 	}
 }
 
@@ -85,7 +101,7 @@ void Game::Shooting()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		bulletModel.setPositionBullet(this->playerShip->GetPlayerShape().getPosition());
+		bulletModel.setPositionBullet(sf::Vector2f(this->playerShip->GetPlayerShape().getPosition().x+28.5f, this->playerShip->GetPlayerShape().getPosition().y));
 		bullets.push_back(Bullet(bulletModel));
 		//std::cout << bulletModel.GetBulletShape().getPosition().x << " " << bulletModel.GetBulletShape().getPosition().y << "\n";
 	}
@@ -99,5 +115,16 @@ void Game::MoveBul()
 		//std::cout << bullets.size();
 		//std::cout << bullet.GetBulletShape().getPosition().x << " " << bullet.GetBulletShape().getPosition().y << "\n";
 
+	}
+}
+
+void Game::DeleteBullets()
+{
+	for (int i=0;i<bullets.size();i++)
+	{
+		if (bullets[i].GetBulletShape().getPosition().y < 0)
+		{
+			this->bullets.erase(bullets.begin()+i);
+		}
 	}
 }

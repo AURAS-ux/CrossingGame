@@ -7,6 +7,7 @@ private:
 	float xSize, ySize, xPos, yPos, deltaTime, movementSpeed;;
 	sf::RectangleShape* shape;
 	sf::Clock clock;
+	sf::Texture* playerTexture;
 	void _initVar();
 	void _initPlayer();
 public:

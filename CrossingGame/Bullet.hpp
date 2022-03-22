@@ -16,7 +16,7 @@ private:
 public:
 	Bullet();
 	virtual ~Bullet();
-	sf::CircleShape GetBulletShape();
+	sf::CircleShape& GetBulletShape();
 	void setPositionBullet(sf::Vector2f);
 	void setPositionBullet(float, float);
 	void updateBullet(sf::Vector2f);

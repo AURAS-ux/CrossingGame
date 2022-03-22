@@ -27,7 +27,7 @@ Bullet::~Bullet()
 	//std::cout << "Called bullet destructor"<<"\n";
 }
 
-sf::CircleShape Bullet::GetBulletShape()
+sf::CircleShape& Bullet::GetBulletShape()
 {
 	return this->shape;
 }

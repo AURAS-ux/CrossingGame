@@ -2,11 +2,12 @@
 
 void Player::_initVar()
 {
-	this->xSize = 40;
-	this->ySize = 40;
+	this->xSize = 80;
+	this->ySize = 80;
 	this->xPos = 960;
 	this->yPos = 940;
 	this->movementSpeed = 300;
+	this->playerTexture = new sf::Texture();
 }
 
 void Player::_initPlayer()
@@ -14,6 +15,10 @@ void Player::_initPlayer()
 	this->shape = new sf::RectangleShape();
 	this->shape->setPosition(xPos, yPos);
 	this->shape->setSize(sf::Vector2f(xSize, ySize));
+	if (this->playerTexture->loadFromFile("./Assets/playerShip.png"))
+	{
+		this->shape->setTexture(this->playerTexture);
+	}
 }
 
 Player::Player()
